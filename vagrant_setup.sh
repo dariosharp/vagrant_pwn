@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 
 # Updates
 sudo apt-get -y update
@@ -10,6 +10,13 @@ sudo apt-get -y install gdb gdb-multiarch
 sudo apt-get -y install unzip
 sudo apt-get -y install foremost
 sudo apt-get -y install emacs24
+sudo apt-get -y install git
+sudo apt-get -y install socat
+
+# Exec 32 bit
+sudo dpkg --add-architecture i386
+sudo apt-get -y update
+sudo apt-get -y install libc6:i386 libncurses5:i386 libstdc++6:i386 libc6-dev-i386
 
 # QEMU with MIPS/ARM - http://reverseengineering.stackexchange.com/questions/8829/cross-debugging-for-mips-elf-with-qemu-toolchain
 sudo apt-get -y install qemu qemu-user qemu-user-static
@@ -28,30 +35,11 @@ mkdir /etc/qemu-binfmt
 ln -s /usr/mipsel-linux-gnu /etc/qemu-binfmt/mipsel 
 ln -s /usr/arm-linux-gnueabihf /etc/qemu-binfmt/arm
 rm /etc/apt/sources.list.d/emdebian.list
-# sudo apt-get update
-
-# Install Binjitsu
-sudo apt-get -y install python2.7 python-pip python-dev git
-sudo pip install --upgrade git+https://github.com/binjitsu/binjitsu.git
+sudo apt-get update
 
 cd
 mkdir tools
 cd tools
-
-# Install pwndbg
-git clone https://github.com/zachriggle/pwndbg
-echo source `pwd`/pwndbg/gdbinit.py >> ~/.gdbinit
-
-# Capstone for pwndbg
-git clone https://github.com/aquynh/capstone
-cd capstone
-git checkout -t origin/next
-sudo ./make.sh install
-cd bindings/python
-sudo python3 setup.py install # Ubuntu 14.04+, GDB uses Python3
-
-# pycparser for pwndbg
-sudo pip3 install pycparser # Use pip3 for Python3
 
 # Install radare2
 git clone https://github.com/radare/radare2
@@ -59,14 +47,15 @@ cd radare2
 ./sys/install.sh
 
 # Install binwalk
-cd 
+cd /home/vagrant/tools
 git clone https://github.com/devttys0/binwalk
 cd binwalk
 sudo python setup.py install
-
+cd /home/vagrant
+                                                                             
 # Install Firmware-Mod-Kit
 sudo apt-get -y install git build-essential zlib1g-dev liblzma-dev python-magic
-cd ~/tools
+cd /home/vagrant/tools
 wget https://firmware-mod-kit.googlecode.com/files/fmk_099.tar.gz
 tar xvf fmk_099.tar.gz
 rm fmk_099.tar.gz
@@ -78,7 +67,7 @@ make
 sudo pip2 uninstall capstone -y
 
 # Install correct capstone
-cd ~/tools/capstone/bindings/python
+cd /home/vagrant/tools/capstone/bindings/python
 sudo python setup.py install
 
 # Personal config
@@ -89,6 +78,7 @@ cd .bash_it/themes/
 
 # Install Angr
 cd /home/vagrant
+cd tools
 sudo apt-get -y install python-dev libffi-dev build-essential virtualenvwrapper
 sudo pip install virtualenv
 virtualenv angr
@@ -96,23 +86,27 @@ source angr/bin/activate
 pip install angr --upgrade
 export BASH_IT_THEME='Bakke'
 
-#gdb peda
+# gdbpeda
 cd /home/vagrant
 git clone https://github.com/longld/peda.git ~/peda
 echo "source ~/peda/peda.py" >> ~/.gdbinit
 
-#z3
+# z3
 cd /home/vagrant
 git clone https://github.com/Z3Prover/z3
 cd z3
-python scripts/mk_make.py
+virtualenv venv
+source venv/bin/activate
+python scripts/mk_make.py --python
 cd build
 make
-sudo make install
+make install
 
-#ROPgadget
-cd /home/vagrant
+# ROPgadget
+cd /home/vagrant/tools
 git clone https://github.com/JonathanSalwan/ROPgadget
 cd ROPgadget
 sudo python setup.py install
 
+# Pwntool
+pip install pwntools
