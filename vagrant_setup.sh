@@ -12,6 +12,7 @@ sudo apt-get -y install foremost
 sudo apt-get -y install emacs24
 sudo apt-get -y install git
 sudo apt-get -y install socat
+sudo apt-get -y install libssl-dev
 
 # Exec 32 bit
 sudo dpkg --add-architecture i386
@@ -37,7 +38,7 @@ ln -s /usr/arm-linux-gnueabihf /etc/qemu-binfmt/arm
 rm /etc/apt/sources.list.d/emdebian.list
 sudo apt-get update
 
-cd
+cd /home/vagrant
 mkdir tools
 cd tools
 
@@ -51,7 +52,6 @@ cd /home/vagrant/tools
 git clone https://github.com/devttys0/binwalk
 cd binwalk
 sudo python setup.py install
-cd /home/vagrant
                                                                              
 # Install Firmware-Mod-Kit
 sudo apt-get -y install git build-essential zlib1g-dev liblzma-dev python-magic
@@ -67,14 +67,19 @@ make
 sudo pip2 uninstall capstone -y
 
 # Install correct capstone
-cd /home/vagrant/tools/capstone/bindings/python
-sudo python setup.py install
+cd /home/vagrant/tools/
+git clone https://github.com/aquynh/capstone
+cd capstone
+sudo ./make.sh install
+sudo python ./bindings/python/setup.py install
 
 # Personal config
 cd /home/vagrant 
 git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 ~/.bash_it/install.sh
 cd .bash_it/themes/
+export BASH_IT_THEME='Bakke'
+
 
 # Install Angr
 cd /home/vagrant
@@ -84,7 +89,6 @@ sudo pip install virtualenv
 virtualenv angr
 source angr/bin/activate
 pip install angr --upgrade
-export BASH_IT_THEME='Bakke'
 
 # gdbpeda
 cd /home/vagrant/tools
@@ -100,7 +104,7 @@ source venv/bin/activate
 python scripts/mk_make.py --python
 cd build
 make
-make install
+sudo make install
 
 # ROPgadget
 cd /home/vagrant/tools
@@ -108,5 +112,5 @@ git clone https://github.com/JonathanSalwan/ROPgadget
 cd ROPgadget
 sudo python setup.py install
 
-# Pwntool
-pip install pwntools
+# Pwntools
+sudo pip install pwntools
