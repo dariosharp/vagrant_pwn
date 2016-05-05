@@ -87,12 +87,12 @@ pip install angr --upgrade
 export BASH_IT_THEME='Bakke'
 
 # gdbpeda
-cd /home/vagrant
+cd /home/vagrant/tools
 git clone https://github.com/longld/peda.git ~/peda
 echo "source ~/peda/peda.py" >> ~/.gdbinit
 
 # z3
-cd /home/vagrant
+cd /home/vagrant/tools
 git clone https://github.com/Z3Prover/z3
 cd z3
 virtualenv venv
