@@ -93,7 +93,7 @@ pip install angr --upgrade
 # gdbpeda
 cd /home/vagrant/tools
 git clone https://github.com/longld/peda.git ~/peda
-echo "source ~/tools/peda/peda.py" >> ~/.gdbinit
+echo "source ~/peda/peda.py" >> ~/.gdbinit
 
 # z3
 cd /home/vagrant/tools
