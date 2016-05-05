@@ -88,7 +88,7 @@ sudo apt-get -y install python-dev libffi-dev build-essential virtualenvwrapper
 sudo pip install virtualenv
 virtualenv angr
 source angr/bin/activate
-pip install angr --upgrade
+sudo pip install angr --upgrade
 
 # gdbpeda
 cd /home/vagrant/tools
