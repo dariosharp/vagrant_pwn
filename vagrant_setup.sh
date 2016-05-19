@@ -114,3 +114,19 @@ sudo python setup.py install
 
 # Pwntools
 sudo pip install pwntools
+
+#pintool
+cd /home/vagrant/tools
+mkdir pintool
+cd pintool
+wget http://software.intel.com/sites/landingpage/pintool/downloads/pin-3.0-76991-gcc-linux.tar.gz
+
+tar zxf pin-3.0-76991-gcc-linux.tar.gz
+rm pin-3.0-76991-gcc-linux.tar.gz
+cd pin-3.0-76991-gcc-linux
+cd source/tools/ManualExamples
+make obj-intel64/inscount0.so TARGET=intel64
+make obj-ia32/inscount0.so TARGET=ia32
+
+cd /home/vagrant/tools/pintool
+git clone https://github.com/r00ta/pintool.git
