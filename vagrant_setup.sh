@@ -115,11 +115,22 @@ sudo python setup.py install
 # Pwntools
 sudo pip install pwntools
 
-#pintool
+# pintool
 cd /home/vagrant/tools
 mkdir pintool
 cd pintool
 wget http://software.intel.com/sites/landingpage/pintool/downloads/pin-3.0-76991-gcc-linux.tar.gz
+
+# unicorn-engine
+sudo apt-get -y install pkg-config
+sudo apt-get -y install libglib2.0
+git clone https://github.com/unicorn-engine/unicorn
+cd unicorn
+UNICORN_ARCHS="arm aarch64 x86" ./make.sh
+./make.sh
+UNICORN_QEMU_FLAGS="--python=/usr/bin/python" ./make.sh
+sudo ./make.sh install
+
 
 tar zxf pin-3.0-76991-gcc-linux.tar.gz
 rm pin-3.0-76991-gcc-linux.tar.gz
