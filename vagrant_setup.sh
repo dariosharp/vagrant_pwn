@@ -141,3 +141,11 @@ make obj-ia32/inscount0.so TARGET=ia32
 
 cd /home/vagrant/tools/pintool
 git clone https://github.com/r00ta/pintool.git
+
+#install dex2jar
+cd /home/vagrant/tools
+git clone https://github.com/pxb1988/dex2jar.git
+
+#install jadax
+cd /home/vagrant/tools
+https://github.com/skylot/jadx
