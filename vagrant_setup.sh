@@ -8,6 +8,7 @@ sudo apt-get -y install python3-pip
 sudo apt-get -y install tmux
 sudo apt-get -y install gdb gdb-multiarch
 sudo apt-get -y install unzip
+sudo apt-get -y install p7zip-full
 sudo apt-get -y install foremost
 sudo apt-get -y install emacs24
 sudo apt-get -y install git
